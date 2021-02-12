@@ -13,6 +13,10 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   // Use the body parser middleware for post requests
   app.use(bodyParser.json());
 
+
+  // app.use()
+
+
   // @TODO1 IMPLEMENT A RESTFUL ENDPOINT
   // GET /filteredimage?image_url={{URL}}
   // endpoint to filter an image from a public url.
@@ -28,6 +32,28 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   //   the filtered image file [!!TIP res.sendFile(filteredpath); might be useful]
 
   /**************************************************************************** */
+  app.get( "/filteredimage/", ( req, res ) => {
+    let { image_url } = req.query;
+
+    if ( !image_url ) {
+      return res.status(400)
+                .send(`name is required`);
+    }
+    let filteredimage;
+    filterImageFromURL(image_url).then(function(path){
+      // return res.status(200)
+              // .send(`Welcome to the Cloud, ${path}!`);
+        return res.sendFile(path);
+
+    }).catch(function(e){
+      return res.status(400)
+              .send(`URL invalid, ${e.message}!`);
+
+    });
+    
+
+  } );
+
 
   //! END @TODO1
   
