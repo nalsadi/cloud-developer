@@ -41,6 +41,9 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
     }
     let filteredimage;
     filterImageFromURL(image_url).then(function(path){
+      if(path == "Failure"){
+        return res.status(400).send(`Invalid URL`);
+      }
       // return res.status(200)
               // .send(`Welcome to the Cloud, ${path}!`);
         return res.sendFile(path);
