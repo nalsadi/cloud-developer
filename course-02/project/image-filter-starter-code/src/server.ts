@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Router, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
@@ -32,20 +32,17 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   //   the filtered image file [!!TIP res.sendFile(filteredpath); might be useful]
 
   /**************************************************************************** */
-  app.get( "/filteredimage/", ( req, res ) => {
-    let { image_url } = req.query;
-
+  app.get( "/filteredimage/",( req: Request, res: Response) => {
+    let { image_url }:any = req.query;
     if ( !image_url ) {
       return res.status(400)
                 .send(`name is required`);
     }
-    let filteredimage;
     filterImageFromURL(image_url).then(function(path){
       if(path == "Failure"){
         return res.status(400).send(`Invalid URL`);
       }
-      // return res.status(200)
-              // .send(`Welcome to the Cloud, ${path}!`);
+      
         return res.sendFile(path);
 
     }).catch(function(e){
