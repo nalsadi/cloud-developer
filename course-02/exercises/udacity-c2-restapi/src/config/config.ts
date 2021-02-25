@@ -10,10 +10,10 @@ export const config = {
     "aws_media_bucket": "udagram-nalsadi-dev"
   },
   "prod": {
-    "username": "",
-    "password": "",
-    "database": "udagram_prod",
-    "host": "",
+    "username": "thedatabaseuda",
+    "password": "thedatabaseuda",
+    "database": "thedatabaseuda",
+    "host": "hedatabaseuda.c2w6sb7fitvm.us-east-2.rds.amazonaws.com",
     "dialect": "postgres"
   }
 }
